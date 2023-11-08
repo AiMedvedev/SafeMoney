@@ -25,7 +25,7 @@ body {
   font-size: 20px;
   line-height: 1.21;
   color: #000;
-  background: #9fa7ff url("../img/bg.jpg");
+  background: #9fa7ff url("../img/bg.webp");
   display: flex;
 }
 
