@@ -13,13 +13,30 @@ const reportDatesForm = document.querySelector('.report__dates');
 const closeReportScreen = ({target}) => {
     if(target.closest('.report__close') || 
     (!target.closest('.report') && target !== reportBtn)) {
-        reportScreen.classList.remove('report__open');
+        gsap.to(reportScreen, {
+            opacity: 0,
+            scale: 0,
+            duration: .5, 
+            eases: 'power2.in',
+            onComplete() {
+                reportScreen.style.visibility = 'hidden';
+            }
+        });
+    
         document.removeEventListener('click', closeReportScreen);
     }
 }
 
 const openReportScreen = () => {
-    reportScreen.classList.add('report__open');
+    reportScreen.style.visibility = 'visible';
+
+    gsap.to(reportScreen, {
+        opacity: 1,
+        scale: 1,
+        duration: .5, 
+        eases: 'power2.out'
+    });
+
     document.addEventListener('click', closeReportScreen);
 }
 
@@ -57,9 +74,15 @@ financeForm.addEventListener('submit', (e) => {
 });
 
 reportBtn.addEventListener('click', async () => {
-    openReportScreen();
+    const textContent = reportBtn.textContent;
+    reportBtn.textContent = 'Загрузка...';
+    reportBtn.disabled = true;
     const data = await getData("/test");
+    reportBtn.textContent = textContent;
+
+    reportBtn.disabled = false;
     renderReport(data);
+    openReportScreen();
 });
 
 reportDatesForm.addEventListener("submit", async (e) => {
