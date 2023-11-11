@@ -25,7 +25,7 @@ export const generateChart = (data) => {
     const [accIncome, incomeAmount] = reducedOperationsPerDate(incomeData);
     const [accExpenses, expensesAmount] = reducedOperationsPerDate(expensesData);
     const balanceAmount = incomeAmount.map(
-        (income, i) => income -     expensesAmount[i]
+        (income, i) => income - expensesAmount[i]
     );
     const canvasChart = document.createElement('canvas');
     clearChart();
