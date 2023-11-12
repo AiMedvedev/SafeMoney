@@ -24,6 +24,7 @@ export const generateChart = (data) => {
 
     const incomeAmount = reducedOperationsPerDate(incomeData);
     const expensesAmount = reducedOperationsPerDate(expensesData);
+
     const balanceAmount = incomeAmount.map(
         (income, i) => income - expensesAmount[i]
     );
@@ -46,13 +47,13 @@ export const generateChart = (data) => {
                     label: "Доходы", 
                     data: incomeAmount, 
                     borderWidth: 2, 
-                    hidden: true
+                    hidden: false
                 },
                 {
                     label: "Расходы", 
                     data: expensesAmount, 
                     borderWidth: 2, 
-                    hidden: true
+                    hidden: false
                 },
                 {
                     label: "Баланс", 
@@ -75,7 +76,7 @@ export const generateChart = (data) => {
                     text: "График финансов"
                 },
                 legend: {
-                    position: top
+                    position: 'top'
                 }
             }
         }
