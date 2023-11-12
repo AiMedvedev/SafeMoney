@@ -10,20 +10,20 @@ export const generateChart = (data) => {
 
     const reducedOperationsPerDate = (dataArray) =>
         chartLabel.reduce(
-            (acc, date) => {
+            (acc, date, i) => {
             const total = dataArray
-            .filter(item => item.date === date)
-            .reduce((acc, record) => acc + parseFloat(record.amount), 0);
-            acc[0] += total;
-            acc[1].push(acc[0]);
-    
-            return [acc[0], acc[1]];
-        }, 
-        [0, []]
-        );
+                .filter(item => item.date === date)
+                .reduce((acc, record) => acc + parseFloat(record.amount), 0);
+            if(i) {
+                acc.push(acc[acc.length - 1] + total);
+            } else {
+                acc.push(total);
+            }
+            return acc;
+        }, []);
 
-    const [accIncome, incomeAmount] = reducedOperationsPerDate(incomeData);
-    const [accExpenses, expensesAmount] = reducedOperationsPerDate(expensesData);
+    const incomeAmount = reducedOperationsPerDate(incomeData);
+    const expensesAmount = reducedOperationsPerDate(expensesData);
     const balanceAmount = incomeAmount.map(
         (income, i) => income - expensesAmount[i]
     );
@@ -70,6 +70,10 @@ export const generateChart = (data) => {
             },
             responsive: true,
             plugins: {
+                title: {
+                    display: true,
+                    text: "График финансов"
+                },
                 legend: {
                     position: top
                 }
