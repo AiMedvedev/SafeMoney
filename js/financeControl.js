@@ -43,6 +43,5 @@ export const financeControl = async () => {
     }, 0);
 
     animationNumber(financeAmount, amount);
-    //financeAmount.textContent = `${amount.toLocaleString()} ₽`;
     financeForm.addEventListener('submit', addNewOperation);
 }

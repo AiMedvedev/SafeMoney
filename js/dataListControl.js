@@ -18,5 +18,4 @@ export const datalistControl = async () => {
     const optionsExpenses = categories.expenses.map(getCategories);
 
     categoryList.append(...optionsExpenses, ...optionsIncome);
-
 }
